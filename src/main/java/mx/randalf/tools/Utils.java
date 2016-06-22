@@ -219,22 +219,27 @@ public class Utils {
 		boolean ris = false;
 		String md5Ori = "";
 		String md5Des = "";
+		
 
 		try {
-			md5Ori = MD5Tools.readMD5File(fileOri);
-			if (!overwriteExists){
-				if (new File(fileDes).exists()){
-					md5Des = MD5Tools.readMD5File(fileDes);
-				}
-				if (!md5Ori.equals(md5Des)){
+			if (new File(fileOri).exists()){
+				md5Ori = MD5Tools.readMD5File(fileOri);
+				if (!overwriteExists){
+					if (new File(fileDes).exists()){
+						md5Des = MD5Tools.readMD5File(fileDes);
+					}
+					if (!md5Ori.equals(md5Des)){
+						copyFile(fileOri, fileDes);
+						md5Des = MD5Tools.readMD5File(fileDes);
+					}
+				} else {
 					copyFile(fileOri, fileDes);
 					md5Des = MD5Tools.readMD5File(fileDes);
 				}
+				ris = md5Ori.equals(md5Des);
 			} else {
-				copyFile(fileOri, fileDes);
-				md5Des = MD5Tools.readMD5File(fileDes);
+				throw new FileNotFoundException("Impossibile trovare il file ["+fileOri+"]");
 			}
-			ris = md5Ori.equals(md5Des);
 		} catch (FileNotFoundException e) {
 			log.error(e.getMessage(), e);
 			throw new UtilException(e.getMessage(), e);
