@@ -38,7 +38,9 @@ class ChecksumTools {
 			throw e;
 		} finally {
 			try {
-				fis.close();
+				if (fis != null){
+					fis.close();
+				}
 			} catch (IOException e) {
 				throw e;
 			}
