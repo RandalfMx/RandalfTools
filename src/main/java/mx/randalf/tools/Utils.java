@@ -102,9 +102,7 @@ public class Utils {
 
 			risulta.add(parola);
 		} catch (Exception exc) {
-			System.err.println("[Comuni.Util.SplitString] Errore = "
-					+ exc.toString());
-			exc.printStackTrace();
+			log.error(exc.getMessage(), exc);
 		}
 		return risulta;
 	}
@@ -283,9 +281,7 @@ public class Utils {
 				}
 			}
 		} catch (Exception exc) {
-			System.err.println("[Comuni.Util.Replace] Errore = "
-					+ exc.toString());
-			exc.printStackTrace();
+			log.error(exc.getMessage(), exc);
 		}
 		return risulta;
 	}

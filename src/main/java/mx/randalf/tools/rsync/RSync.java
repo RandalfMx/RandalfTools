@@ -71,11 +71,11 @@ public class RSync {
 			brStd = new BufferedReader(isrStd);
 
 			while ((val = brStd.readLine()) != null) {
-				log.debug(val);
+				log.debug("\n"+val);
 			}
 
 			while ((val = brErr.readLine()) != null) {
-				log.error(val);
+				log.error("\n"+val);
 			}
 
 			exitVal = proc.waitFor();
@@ -164,7 +164,7 @@ public class RSync {
 				if (stderr != null){
 					stderr.close();
 				}
-				log.info("File inviato");
+				log.info("\n"+"File inviato");
 			} catch (IOException e) {
 				throw new RSyncException(e.getMessage(), e);
 			}
