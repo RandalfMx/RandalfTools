@@ -3,6 +3,7 @@
  */
 package mx.randalf.tools;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +52,14 @@ public class MD5Tools {
 	}
 
 	public static String readMD5File(String filename)
+			throws FileNotFoundException, NoSuchAlgorithmException, IOException {
+		ChecksumTools checkSun = null;
+		
+		checkSun = new ChecksumTools(CHECKSUN);
+		return checkSun.readMD5File(filename);
+	}
+
+	public static String readMD5File(File filename)
 			throws FileNotFoundException, NoSuchAlgorithmException, IOException {
 		ChecksumTools checkSun = null;
 		

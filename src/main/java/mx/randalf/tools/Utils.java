@@ -10,9 +10,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import mx.randalf.tools.exception.UtilException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import org.apache.log4j.Logger;
+import mx.randalf.tools.exception.UtilException;
 
 /**
  * Questa classe contiene funzioni di Utilita'.
@@ -22,7 +23,7 @@ import org.apache.log4j.Logger;
  */
 public class Utils {
 
-	private static Logger log = Logger.getLogger(Utils.class);
+	private static Logger log = LogManager.getLogger(Utils.class);
 	
 	private static long maxByteRead = 4000000;
 	
@@ -118,8 +119,11 @@ public class Utils {
 	 */
 	public static void copyFile(String fileOri, String fileDes)
 			throws UtilException {
-		File fr = null;
-		File fo = null;
+		copyFile(new File(fileOri), new File(fileDes));
+	}
+
+	public static void copyFile(File fr, File fo)
+			throws UtilException {
 		FileInputStream br = null;
 		FileOutputStream bw = null;
 		byte[] testo = null;
@@ -127,8 +131,6 @@ public class Utils {
 		int numByte = 0;
 
 		try {
-			fr = new File(fileOri);
-			fo = new File(fileDes);
 
 			if (!fr.getAbsolutePath().equals(fo.getAbsolutePath())) {
 				if (!fo.getParentFile().exists()) {
@@ -200,6 +202,11 @@ public class Utils {
 	 */
 	public static boolean copyFileValidate(String fileOri, String fileDes)
 			throws UtilException {
+		return copyFileValidate(new File(fileOri), new File(fileDes));
+	}
+
+	public static boolean copyFileValidate(File fileOri, File fileDes)
+			throws UtilException {
 		return copyFileValidate(fileOri, fileDes, true);
 	}
 
@@ -214,16 +221,21 @@ public class Utils {
 	 */
 	public static boolean copyFileValidate(String fileOri, String fileDes, boolean overwriteExists)
 			throws UtilException {
+		return copyFileValidate(new File(fileOri), new File(fileDes), overwriteExists);
+	}
+
+	public static boolean copyFileValidate(File fileOri, File fileDes, boolean overwriteExists)
+			throws UtilException {
 		boolean ris = false;
 		String md5Ori = "";
 		String md5Des = "";
 		
 
 		try {
-			if (new File(fileOri).exists()){
+			if (fileOri.exists()){
 				md5Ori = MD5Tools.readMD5File(fileOri);
 				if (!overwriteExists){
-					if (new File(fileDes).exists()){
+					if (fileDes.exists()){
 						md5Des = MD5Tools.readMD5File(fileDes);
 					}
 					if (!md5Ori.equals(md5Des)){

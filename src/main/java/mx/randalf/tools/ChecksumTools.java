@@ -3,6 +3,7 @@
  */
 package mx.randalf.tools;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,6 +23,33 @@ class ChecksumTools {
 	}
 
 	public byte[] createChecksum(String filename)
+			throws FileNotFoundException, NoSuchAlgorithmException, IOException {
+		byte[] buffer = null;
+		InputStream fis = null;
+
+		try {
+			fis = new FileInputStream(filename);
+
+			buffer = createChecksum(fis);
+		} catch (FileNotFoundException e) {
+			throw e;
+		} catch (NoSuchAlgorithmException e) {
+			throw e;
+		} catch (IOException e) {
+			throw e;
+		} finally {
+			try {
+				if (fis != null){
+					fis.close();
+				}
+			} catch (IOException e) {
+				throw e;
+			}
+		}
+		return buffer;
+	}
+
+	public byte[] createChecksum(File filename)
 			throws FileNotFoundException, NoSuchAlgorithmException, IOException {
 		byte[] buffer = null;
 		InputStream fis = null;
@@ -117,6 +145,27 @@ class ChecksumTools {
 	}
 
 	public String readMD5File(String filename)
+			throws FileNotFoundException, NoSuchAlgorithmException, IOException {
+		byte[] b = null;
+		String result = "";
+
+		try {
+			b = createChecksum(filename);
+			for (int i = 0; i < b.length; i++) {
+				result += Integer.toString((b[i] & 0xff) + 0x100, 16)
+						.substring(1);
+			}
+		} catch (FileNotFoundException e) {
+			throw e;
+		} catch (NoSuchAlgorithmException e) {
+			throw e;
+		} catch (IOException e) {
+			throw e;
+		}
+		return result;
+	}
+
+	public String readMD5File(File filename)
 			throws FileNotFoundException, NoSuchAlgorithmException, IOException {
 		byte[] b = null;
 		String result = "";
