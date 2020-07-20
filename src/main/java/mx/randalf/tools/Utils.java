@@ -10,8 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 
 import mx.randalf.tools.exception.UtilException;
 
@@ -23,7 +22,7 @@ import mx.randalf.tools.exception.UtilException;
  */
 public class Utils {
 
-	private static Logger log = LogManager.getLogger(Utils.class);
+	private static Logger log = Logger.getLogger(Utils.class);
 	
 	private static long maxByteRead = 4000000;
 	

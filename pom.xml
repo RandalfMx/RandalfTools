@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>mx.randalf.tools</groupId>
   <artifactId>RandalfTools</artifactId>
-  <version>2.0.0</version>
+  <version>3.0.0</version>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -15,9 +15,9 @@
   		<version>2.3</version>
   	</dependency>
   	<dependency>
-  		<groupId>org.apache.logging.log4j</groupId>
-  		<artifactId>log4j-core</artifactId>
-  		<version>2.13.1</version>
+  		<groupId>log4j</groupId>
+  		<artifactId>log4j</artifactId>
+  		<version>1.2.17</version>
   	</dependency>
   </dependencies>
 <!--
