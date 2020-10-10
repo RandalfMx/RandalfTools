@@ -16,15 +16,14 @@ public class ChecksumTest {
 	 * 
 	 */
 	public ChecksumTest() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		MD5Tools md5 = null;
-		SHA1Tools sha1 = null;
+//		MD5Tools md5 = null;
+//		SHA1Tools sha1 = null;
 		SHA256Tools sha256 = null;
 		String parola = "";
 		String value = "";
