@@ -12,6 +12,7 @@ import java.util.Vector;
 
 import org.apache.log4j.Logger;
 
+import mx.randalf.digest.MD5;
 import mx.randalf.tools.exception.UtilException;
 
 /**
@@ -199,14 +200,14 @@ public class Utils {
 	 * @return
 	 * @throws UtilException
 	 */
-	public static boolean copyFileValidate(String fileOri, String fileDes)
+	public static boolean copyFileValidate(String fileOri, String fileDes, File fileMd5)
 			throws UtilException {
-		return copyFileValidate(new File(fileOri), new File(fileDes));
+		return copyFileValidate(new File(fileOri), new File(fileDes), fileMd5);
 	}
 
-	public static boolean copyFileValidate(File fileOri, File fileDes)
+	public static boolean copyFileValidate(File fileOri, File fileDes, File fileMd5)
 			throws UtilException {
-		return copyFileValidate(fileOri, fileDes, true);
+		return copyFileValidate(fileOri, fileDes, true, fileMd5);
 	}
 
 	/**
@@ -218,32 +219,41 @@ public class Utils {
 	 * @return
 	 * @throws UtilException
 	 */
-	public static boolean copyFileValidate(String fileOri, String fileDes, boolean overwriteExists)
+	public static boolean copyFileValidate(String fileOri, String fileDes, boolean overwriteExists, File fileMd5)
 			throws UtilException {
-		return copyFileValidate(new File(fileOri), new File(fileDes), overwriteExists);
+		return copyFileValidate(new File(fileOri), new File(fileDes), overwriteExists, fileMd5);
 	}
 
-	public static boolean copyFileValidate(File fileOri, File fileDes, boolean overwriteExists)
+	public static boolean copyFileValidate(File fileOri, File fileDes, boolean overwriteExists, File fileMd5)
 			throws UtilException {
 		boolean ris = false;
+		MD5 md5 = null;
 		String md5Ori = "";
 		String md5Des = "";
 		
 
 		try {
 			if (fileOri.exists()){
-				md5Ori = MD5Tools.readMD5File(fileOri);
+				md5 = new MD5(fileOri, fileMd5);
+				md5Ori = md5.getDigest();
+//				md5Ori = MD5Tools.readMD5File(fileOri);
 				if (!overwriteExists){
 					if (fileDes.exists()){
-						md5Des = MD5Tools.readMD5File(fileDes);
+						md5 = new MD5(fileDes, fileMd5);
+						md5Des = md5.getDigest();
+//						md5Des = MD5Tools.readMD5File(fileDes);
 					}
 					if (!md5Ori.equals(md5Des)){
 						copyFile(fileOri, fileDes);
-						md5Des = MD5Tools.readMD5File(fileDes);
+						md5 = new MD5(fileDes, fileMd5);
+						md5Des = md5.getDigest();
+//						md5Des = MD5Tools.readMD5File(fileDes);
 					}
 				} else {
 					copyFile(fileOri, fileDes);
-					md5Des = MD5Tools.readMD5File(fileDes);
+					md5 = new MD5(fileDes, fileMd5);
+					md5Des = md5.getDigest();
+//					md5Des = MD5Tools.readMD5File(fileDes);
 				}
 				ris = md5Ori.equals(md5Des);
 			} else {
@@ -256,6 +266,9 @@ public class Utils {
 			log.error(e.getMessage(), e);
 			throw new UtilException(e.getMessage(), e);
 		} catch (IOException e) {
+			log.error(e.getMessage(), e);
+			throw new UtilException(e.getMessage(), e);
+		} catch (InterruptedException e) {
 			log.error(e.getMessage(), e);
 			throw new UtilException(e.getMessage(), e);
 		}
