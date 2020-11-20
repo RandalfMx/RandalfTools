@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>mx.randalf.tools</groupId>
   <artifactId>RandalfTools</artifactId>
-  <version>3.0.2</version>
+  <version>3.0.3</version>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.9</maven.compiler.source>
@@ -22,7 +22,7 @@
   	<dependency>
   		<groupId>mx.randalf.digest</groupId>
   		<artifactId>RandalfDigest</artifactId>
-  		<version>3.0.1</version>
+  		<version>3.0.2</version>
   	</dependency>
   </dependencies>
 <!--
