@@ -3,9 +3,6 @@
  */
 package mx.randalf.tools;
 
-import java.security.NoSuchAlgorithmException;
-
-
 /**
  * @author massi
  *
