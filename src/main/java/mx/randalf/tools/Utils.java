@@ -108,6 +108,11 @@ public class Utils {
 		return risulta;
 	}
 
+	public static boolean moveFileValidate(String fileOri, String fileDes)
+			throws UtilException {
+		return moveFileValidate(new File(fileOri), new File(fileDes));
+	}
+
 	/**
 	 * Questo metodo viene utilizzato per copiare un file
 	 * 
@@ -120,6 +125,11 @@ public class Utils {
 	public static void copyFile(String fileOri, String fileDes)
 			throws UtilException {
 		copyFile(new File(fileOri), new File(fileDes));
+	}
+
+	public static boolean moveFileValidate(File fileOri, File fileDes)
+			throws UtilException {
+		return moveFileValidate(fileOri, fileDes, null);
 	}
 
 	public static void copyFile(File fr, File fo)
@@ -191,6 +201,11 @@ public class Utils {
 		}
 	}
 
+	public static boolean moveFileValidate(String fileOri, String fileDes, File fileMd5)
+			throws UtilException {
+		return moveFileValidate(new File(fileOri), new File(fileDes), fileMd5);
+	}
+
 	/**
 	 * Questo metodo viene utilizzato per copiare il file e validare il file
 	 * copiato tramite il codice Md5
@@ -205,9 +220,19 @@ public class Utils {
 		return copyFileValidate(new File(fileOri), new File(fileDes), fileMd5);
 	}
 
+	public static boolean moveFileValidate(File fileOri, File fileDes, File fileMd5)
+			throws UtilException {
+		return moveFileValidate(fileOri, fileDes, true, fileMd5);
+	}
+
 	public static boolean copyFileValidate(File fileOri, File fileDes, File fileMd5)
 			throws UtilException {
 		return copyFileValidate(fileOri, fileDes, true, fileMd5);
+	}
+
+	public static boolean moveFileValidate(String fileOri, String fileDes, boolean overwriteExists, File fileMd5)
+			throws UtilException {
+		return moveFileValidate(new File(fileOri), new File(fileDes), overwriteExists, fileMd5);
 	}
 
 	/**
@@ -222,6 +247,19 @@ public class Utils {
 	public static boolean copyFileValidate(String fileOri, String fileDes, boolean overwriteExists, File fileMd5)
 			throws UtilException {
 		return copyFileValidate(new File(fileOri), new File(fileDes), overwriteExists, fileMd5);
+	}
+
+	public static boolean moveFileValidate(File fileOri, File fileDes, boolean overwriteExists, File fileMd5)
+			throws UtilException {
+		boolean ris = false;
+		if (copyFileValidate(fileOri, fileDes, overwriteExists, fileMd5)) {
+			if (!fileOri.delete()) {
+				throw new UtilException("Problemi nella cancellazione del file ["+fileOri.getAbsolutePath()+"]");
+			} else {
+				ris = true;
+			}
+		}
+		return ris;
 	}
 
 	public static boolean copyFileValidate(File fileOri, File fileDes, boolean overwriteExists, File fileMd5)
