@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>mx.randalf.tools</groupId>
   <artifactId>RandalfTools</artifactId>
-  <version>2.0.0</version>
+  <version>2.0.1</version><!-- 2.0.0 -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -17,7 +17,7 @@
   	<dependency>
   		<groupId>org.apache.logging.log4j</groupId>
   		<artifactId>log4j-core</artifactId>
-  		<version>2.13.1</version>
+  		<version>2.15.0</version><!-- 2.13.1 -->
   	</dependency>
   </dependencies>
 <!--
@@ -49,6 +49,7 @@
     </extensions>
   </build>
 -->
+<!-- 
   <distributionManagement>
     <repository>
         <id>mvn-bncf</id>
@@ -56,4 +57,6 @@
         <url>http://maven.bncf.firenze.sbn.it/artifactory/libs-release-local</url>
     </repository>
 </distributionManagement>
+ -->
+ 
 </project>
